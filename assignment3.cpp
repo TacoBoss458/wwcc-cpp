@@ -15,6 +15,9 @@ int main(){
     cout << "Your tempreture of " << temp << " degrees Celsius is equivilent to " << Fahrenheit << " degrees Fahrenhiet." << endl;
     } else if (answer == "f"){
         cout << "Your tempreture of " << temp << " degrees Fahrenhiet is equivalent to " << Celsius << " degrees Celsius."<< endl;
+    } else {
+        cin.clear();
+        cin.ignore(10000, '\n');
     }
     return 0;
     
