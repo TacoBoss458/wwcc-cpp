@@ -16,7 +16,7 @@ int main (){
     printf("Octal: %o\n", integerValue);
     printf("With width (5): [%5d]\n",integerValue);
     printf("Left-aligned: [%-5d]\n\n", integerValue);
-    printf("Float formats:\n\n");
+    printf("Float formats:\n");
     printf("Default: %f\n", floatValue);
     printf("With precision (2): %.2f\n", floatValue);
     printf("Scientific: %e\n", floatValue);
