@@ -33,5 +33,6 @@ int main() {
     double tPer = (static_cast <double> (tails) / flips) * 100;    
     cout << "Coin landed on Heads " << heads << " times (" << hPer << "%)." << endl;
     cout << "Coin landed on Tails " << tails << " times (" << tPer << "%)." << endl;
+
     return 0;
 }
