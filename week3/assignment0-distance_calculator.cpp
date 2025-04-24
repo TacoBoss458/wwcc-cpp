@@ -7,4 +7,5 @@ int main(){
         int sum = num1 + num2;
     }
     int result = addnumbers;
+    return 0;
 }
