@@ -15,12 +15,12 @@ int main () {
     cin >> x1;
     cout << "Y1: ";
     cin >> y1;
-    cout << "Point two\nX2: ";
+    cout << "\nPoint two\nX2: ";
     cin >> x2;
     cout << "Y2: ";
     cin >> y2;
     double result = calculateDistance(x1, x2, y1, y2);
-    cout << "The distance between (" << x1 << "," << y1 << ") and (" 
+    cout << "\nThe distance between (" << x1 << "," << y1 << ") and (" 
     << x2 << "," << y2 << ") is " << result << "!" << endl;
     return 0;
 
