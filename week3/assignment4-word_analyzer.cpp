@@ -62,7 +62,11 @@ int main() {
         cin >> exitProgram;
         if (exitProgram == 'y' || exitProgram == 'Y') {
             break;
+        } else if (word{
+
+
         }
+        
     }
     cout << "Goodbye.\n";
     return 0;
