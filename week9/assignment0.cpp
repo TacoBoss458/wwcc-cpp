@@ -1,24 +1,21 @@
+
 #include <iostream>
 #include <string>
 #include <vector>
 #include <memory>
 #include <algorithm>
 #include <functional>
+#include <numeric>
+#include <map>
 
 using namespace std;
 
-/// MediaItem class definition
 class MediaItem {
 protected:
-    string title;
-    string creator;
-    int yearReleased;
+    string title, creator, dateAdded;
+    int yearReleased, length, timesAccessed;
     double rating;
-    int length;
-    vector<string> genres;
-    vector<string> tags;
-    int timesAccessed;
-    string dateAdded;
+    vector<string> genres, tags;
 
 public:
     MediaItem(string t, string c, int year, double r, int len,
@@ -27,132 +24,73 @@ public:
           genres(g), tags(tg), timesAccessed(0), dateAdded(date) {}
 
     virtual ~MediaItem() {}
-
+    virtual void display() const {
+        cout << "Title: " << title << "\nCreator: " << creator
+             << "\nYear: " << yearReleased << "\nRating: " << rating
+             << "\nLength: " << length << "\nGenres: ";
+        for (auto& g : genres) cout << g << " ";
+        cout << "\nTags: ";
+        for (auto& t : tags) cout << t << " ";
+        cout << "\nAccessed: " << timesAccessed << "\nDate Added: " << dateAdded << "\n";
+    }
+    void access() { ++timesAccessed; }
     string getTitle() const { return title; }
     string getCreator() const { return creator; }
     int getYearReleased() const { return yearReleased; }
     double getRating() const { return rating; }
-    int getLength() const { return length; }
-    vector<string> getGenres() const { return genres; }
-    vector<string> getTags() const { return tags; }
     int getTimesAccessed() const { return timesAccessed; }
-    string getDateAdded() const { return dateAdded; }
-
-    void access() { ++timesAccessed; }
-    void setRating(double r) { rating = r; }
-
-    virtual void display() const {
-        cout << "Title: " << title << "\n"
-             << "Creator: " << creator << "\n"
-             << "Year Released: " << yearReleased << "\n"
-             << "Rating: " << rating << "\n"
-             << "Length: " << length << "\n"
-             << "Genres: ";
-        for (const auto& g : genres) cout << g << " ";
-        cout << "\nTags: ";
-        for (const auto& t : tags) cout << t << " ";
-        cout << "\nTimes Accessed: " << timesAccessed << "\n"
-             << "Date Added: " << dateAdded << "\n";
-    }
+    vector<string> getGenres() const { return genres; }
+    virtual string getType() const = 0;
 };
 
-/// Movie class
 class Movie : public MediaItem {
-private:
-    string director;
+    string director, studio;
     int runtime;
-    string studio;
-
 public:
-    Movie(string t, string c, int year, double r, int len,
-          vector<string> g, vector<string> tg, string date,
-          string dir, int run, string studio)
-        : MediaItem(t, c, year, r, len, g, tg, date),
-          director(dir), runtime(run), studio(studio) {}
-
+    Movie(string t, string c, int y, double r, int len, vector<string> g, vector<string> tg, string d,
+          string dir, int run, string s)
+        : MediaItem(t, c, y, r, len, g, tg, d), director(dir), runtime(run), studio(s) {}
     void display() const override {
         MediaItem::display();
-        cout << "Director: " << director << "\n"
-             << "Runtime: " << runtime << " minutes\n"
-             << "Studio: " << studio << "\n";
+        cout << "Director: " << director << "\nRuntime: " << runtime << "\nStudio: " << studio << "\n";
     }
+    string getType() const override { return "Movie"; }
 };
 
-/// Song class
 class Song : public MediaItem {
-private:
     string album;
-    int duration;
-    int playCount;
-
+    int duration, playCount;
 public:
-    Song(string t, string c, int year, double r, int len,
-         vector<string> g, vector<string> tg, string date,
+    Song(string t, string c, int y, double r, int len, vector<string> g, vector<string> tg, string d,
          string alb, int dur, int plays)
-        : MediaItem(t, c, year, r, len, g, tg, date),
-          album(alb), duration(dur), playCount(plays) {}
-
-    void play() { ++playCount; }
-
+        : MediaItem(t, c, y, r, len, g, tg, d), album(alb), duration(dur), playCount(plays) {}
     void display() const override {
         MediaItem::display();
-        cout << "Album: " << album << "\n"
-             << "Duration: " << duration << " seconds\n"
-             << "Play Count: " << playCount << "\n";
+        cout << "Album: " << album << "\nDuration: " << duration << "\nPlay Count: " << playCount << "\n";
     }
+    string getType() const override { return "Song"; }
 };
 
-/// Book class
 class Book : public MediaItem {
-private:
     string publisher;
-    double readingProgress;
-
+    double progress;
 public:
-    Book(string t, string c, int year, double r, int len,
-         vector<string> g, vector<string> tg, string date,
-         string pub, double progress)
-        : MediaItem(t, c, year, r, len, g, tg, date),
-          publisher(pub), readingProgress(progress) {}
-
-    void updateProgress(double progress) {
-        if (progress >= 0.0 && progress <= 100.0)
-            readingProgress = progress;
-    }
-
+    Book(string t, string c, int y, double r, int len, vector<string> g, vector<string> tg, string d,
+         string pub, double prog)
+        : MediaItem(t, c, y, r, len, g, tg, d), publisher(pub), progress(prog) {}
     void display() const override {
         MediaItem::display();
-        cout << "Publisher: " << publisher << "\n"
-             << "Reading Progress: " << readingProgress << "%\n";
+        cout << "Publisher: " << publisher << "\nProgress: " << progress << "%\n";
     }
+    string getType() const override { return "Book"; }
 };
 
-/// MediaCollection class
 class MediaCollection {
-private:
     vector<shared_ptr<MediaItem>> items;
 
 public:
     void addItem(shared_ptr<MediaItem> item) {
         items.push_back(item);
-    }
-
-    void removeIf(function<bool(const shared_ptr<MediaItem>&)> condition) {
-        items.erase(remove_if(items.begin(), items.end(), condition), items.end());
-    }
-
-    vector<shared_ptr<MediaItem>> findIf(function<bool(const shared_ptr<MediaItem>&)> condition) const {
-        vector<shared_ptr<MediaItem>> results;
-        for (const auto& item : items) {
-            if (condition(item)) {
-                results.push_back(item);
-            }
-        }
-        return results;
-    }
-
-    void sortBy(function<bool(const shared_ptr<MediaItem>&, const shared_ptr<MediaItem>&)> comparator) {
-        sort(items.begin(), items.end(), comparator);
     }
 
     void displayAll() const {
@@ -162,74 +100,134 @@ public:
         }
     }
 
-    void accessAll() {
-        for (auto& item : items) {
-            item->access();
-        }
-    }
-
-    // Sorting Methods
     void sortByTitle() {
-        sortBy([](const auto& return a->getTitle() < b->getTitle();
+        sort(items.begin(), items.end(), [](auto& a, auto& b) {
+            return a->getTitle() < b->getTitle();
         });
     }
 
     void sortByCreatorThenTitle() {
-        sortBy( {
-            return (a->getCreator() == b->getCreator()) ?
-                   (a->getTitle() < b->getTitle()) :
-                   (a->getCreator() < b->getCreator());
+        sort(items.begin(), items.end(), [](auto& a, auto& b) {
+            return a->getCreator() == b->getCreator() ?
+                   a->getTitle() < b->getTitle() :
+                   a->getCreator() < b->getCreator();
         });
     }
 
-    void sortByRatingDescending() {
-        sortBy([](const       return a->getRating() > b->getRating();
+    void sortByRating() {
+        sort(items.begin(), items.end(), [](auto& a, auto& b) {
+            return a->getRating() > b->getRating();
         });
     }
 
-    void sortByYearDescending() {
-        sortBy([](const auto& a, const auto&earReleased() > b->getYearReleased();
+    void sortByYear() {
+        sort(items.begin(), items.end(), [](auto& a, auto& b) {
+            return a->getYearReleased() > b->getYearReleased();
         });
     }
 
-    void sortByAccessCountDescending() {
-        sortBy([](const auto& a,turn a->getTimesAccessed() > b->getTimesAccessed();
+    void sortByAccessCount() {
+        sort(items.begin(), items.end(), [](auto& a, auto& b) {
+            return a->getTimesAccessed() > b->getTimesAccessed();
         });
     }
 
-    // Filtering and Searching
-    vector<shared_ptr<MediaItem>> filterByYearRange(int startYear, int endYear) const {
-        return findIf(= {
-            return item->getYearReleased() >= startYear && item->getYearReleased() <= endYear;
-        });
-    }
-
-    vector<shared_ptr<MediaItem>> filterByMinRating(double minRating) const {
-        return findIf(= {
-            return item->getRating() >= minRating;
-        });
-    }
-
-    vector<shared_ptr<MediaItem>> findByPartialTitleOrCreator(const string& keyword) const {
-        return findIf(= {
+    void searchByKeyword(const string& keyword) const {
+        auto it = find_if(items.begin(), items.end(), [&](auto& item) {
             return item->getTitle().find(keyword) != string::npos ||
                    item->getCreator().find(keyword) != string::npos;
         });
+        if (it != items.end()) (*it)->display();
+        else cout << "No match found.\n";
     }
 
-    vector<shared_ptr<MediaItem>> findByGenre(const string& genre) const {
-        return findIf(= {
-            const auto& genres = item->getGenres();
-            return find(genres.begin(), genres.end(), genre) != genres.end();
+    void filterByRating(double minRating) const {
+        vector<shared_ptr<MediaItem>> results;
+        copy_if(items.begin(), items.end(), back_inserter(results), [=](auto& item) {
+            return item->getRating() >= minRating;
         });
+        for (auto& item : results) item->display();
     }
 
-    vector<shared_ptr<MediaItem>> findByType(const string& type) const {
-        return findIf(= {
-            if (type == "Movie" && dynamic_pointer_cast<Movie>(item)) return true;
-            if (type == "Song" && dynamic_pointer_cast<Song>(item)) return true;
-            if (type == "Book" && dynamic_pointer_cast<Book>(item)) return true;
-            return false;
+    void countByType() const {
+        int movies = count_if(items.begin(), items.end(), [](auto& i) {
+            return i->getType() == "Movie";
         });
+        int songs = count_if(items.begin(), items.end(), [](auto& i) {
+            return i->getType() == "Song";
+        });
+        int books = count_if(items.begin(), items.end(), [](auto& i) {
+            return i->getType() == "Book";
+        });
+        cout << "Movies: " << movies << ", Songs: " << songs << ", Books: " << books << "\n";
+    }
+
+    void averageRating() const {
+        if (items.empty()) return;
+        double total = accumulate(items.begin(), items.end(), 0.0, [](double sum, auto& i) {
+            return sum + i->getRating();
+        });
+        cout << "Average Rating: " << total / items.size() << "\n";
+    }
+
+    void mostCommonGenre() const {
+        map<string, int> genreCount;
+        for (auto& item : items) {
+            for (auto& g : item->getGenres()) {
+                genreCount[g]++;
+            }
+        }
+        string mostCommon;
+        int maxCount = 0;
+        for (auto& [genre, count] : genreCount) {
+            if (count > maxCount) {
+                maxCount = count;
+                mostCommon = genre;
+            }
+        }
+        cout << "Most Common Genre: " << mostCommon << " (" << maxCount << " times)\n";
     }
 };
+
+int main() {
+    MediaCollection collection;
+
+    // Sample entries so I dont have to constantly keep putting things in
+    // collection.addItem(make_shared<Movie>("Inception", "Nolan", 2010, 8.8, 148, vector<string>{"Sci-Fi"}, vector<string>{"dream"}, "2023-01-01", "Nolan", 148, "WB"));
+    // collection.addItem(make_shared<Song>("Imagine", "Lennon", 1971, 9.2, 3, vector<string>{"Pop"}, vector<string>{"peace"}, "2023-01-02", "Imagine", 180, 100));
+    // collection.addItem(make_shared<Book>("1984", "Orwell", 1949, 9.0, 328, vector<string>{"Dystopia"}, vector<string>{"totalitarian"}, "2023-01-03", "Secker", 100.0));
+
+    int choice;
+    do {
+        cout << "\nMenu:\n1. View Collection\n2. Search Items\n3. Add New Item\n4. Collection Statistics\n5. Exit\nChoice: ";
+        cin >> choice;
+        cin.ignore();
+
+        if (choice == 1) {
+            int sortChoice;
+            cout << "Sort by: 1-Title 2-Creator 3-Rating 4-Year 5-Access\nChoice: ";
+            cin >> sortChoice;
+            switch (sortChoice) {
+                case 1: collection.sortByTitle(); break;
+                case 2: collection.sortByCreatorThenTitle(); break;
+                case 3: collection.sortByRating(); break;
+                case 4: collection.sortByYear(); break;
+                case 5: collection.sortByAccessCount(); break;
+            }
+            collection.displayAll();
+        } else if (choice == 2) {
+            string keyword;
+            cout << "Enter keyword to search: ";
+            getline(cin, keyword);
+            collection.searchByKeyword(keyword);
+        } else if (choice == 3) {
+            cout << "Adding new item not implemented in this demo.\n";
+        } else if (choice == 4) {
+            collection.countByType();
+            collection.averageRating();
+            collection.mostCommonGenre();
+        }
+    } while (choice != 5);
+
+    return 0;
+}
