@@ -3,20 +3,21 @@
 
 #include <string>
 #include <vector>
+using namespace std;
 
 class Pokemon {
 public:
-    std::string name;
-    std::string type;
+    string name;
+    string type;
     int hp;
     int attack;
     int defense;
 
-    Pokemon(std::string n, std::string t, int h, int a, int d)
+    Pokemon(string n, string t, int h, int a, int d)
         : name(n), type(t), hp(h), attack(a), defense(d) {}
 };
 
-std::vector<Pokemon> getStarterPokemon() {
+vector<Pokemon> getStarterPokemon() {
     return {
         // Generation 1 - Kanto
         Pokemon("Bulbasaur", "Grass", 45, 49, 49),
