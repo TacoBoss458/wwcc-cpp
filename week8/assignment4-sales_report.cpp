@@ -92,7 +92,7 @@ int main() {
         if (product.totalRevenue > bestProduct.totalRevenue) {
             bestProduct = product;
         }
-    }
+    } 
 
     // Report Generation
     reportFile << "SALES SUMMARY REPORT\n";

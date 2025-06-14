@@ -1,0 +1,6 @@
+# Student academic records
+12345 Alice Johnson Math:95 English:88 History:76
+23456 Bob Smith Biology:65 Chemistry:58
+34567 Charlie Brown Math:85 English:82 History:78 Science:90 Art:66
+45678 Dana White Math:55 English:60 History:59
+56789 Eve Davis Math:100 English:95 History:98 Science:92

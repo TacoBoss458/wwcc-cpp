@@ -1,0 +1,25 @@
+STUDENT ACADEMIC RECORD PROCESSOR
+---------------------------------
+
+Reading student records from input file...
+
+STUDENT GRADE REPORT
+-------------------
+ID      Name                    Courses Taken     GPA
+-----   ----------------   -------------    ----
+12345   Alice Johnson                       3    3.00
+23456   Bob Smith                           2    0.50
+34567   Charlie Brown                       5    2.60
+45678   Dana White                          3    0.33
+56789   Eve Davis                           4    4.00
+
+CLASS STATISTICS
+----------------
+Total Students: 5
+Total Courses Taken: 17
+Class Average GPA: 2.09
+
+Highest GPA: Eve Davis (4.00)
+Lowest GPA: Dana White (0.33)
+
+Summary report written to output file successfully.
