@@ -1,0 +1,26 @@
+SALES SUMMARY REPORT
+Generated: 2025-06-13 18:43:57
+=====================================
+
+Product               Category        Units Sold   Unit Price  Total Revenue
+--------------------  ---------------  -----------  -----------  -------------
+Keyboard              Electronics             12        79.99         959.88
+Laptop                Electronics              5       899.99        4499.95
+Monitor               Electronics              3       299.99         899.97
+Mouse                 Electronics             25        29.99         749.75
+                                        -----------  -------------
+Electronics Subtotal:                    45        7109.55
+
+Notebook              Stationery             100         4.99         499.00
+Pen                   Stationery             200         1.99         398.00
+                                        -----------  -------------
+Stationery Subtotal:                   300         897.00
+
+=====================================
+SUMMARY STATISTICS
+=====================================
+Total Products Sold: 6
+Total Units Sold: 345
+Total Revenue: $8006.55
+Average Sale Value: $1334.42
+Best-Selling Product: Laptop ($4499.95)
