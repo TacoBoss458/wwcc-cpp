@@ -64,17 +64,17 @@ int main() {
         cout << "5. Exit\n";
         cout << "Enter your choice: ";
 
-        if (!(cin >> choice)) { // This clears that weird spamming issue 
+        if (!(cin >> choice)) {
             cin.clear(); // clear error flags
             cin.ignore(numeric_limits<streamsize>::max(), '\n'); // discard invalid input
             cout << "Invalid input. Please enter a number.\n";
             continue;
         }
         cin.ignore();
-        
+
         if (choice == 1) { // Movie adder
-            Movie m = createMovie(); // Calls create movie 
-            movies.push_back(m); // Adds to movie vector
+            Movie m = createMovie();
+            movies.push_back(m);
             cout << "Movie added!\n";
 
         } else if (choice == 2) {
@@ -87,7 +87,7 @@ int main() {
             cout << "5. Filter by Rating\n";
             cout << "Enter your choice: ";
         
-            if (!(cin >> searchChoice)) { // Spammy issue
+            if (!(cin >> searchChoice)) {
                 cin.clear();
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
                 cout << "Invalid input. Returning to main menu.\n";
@@ -102,8 +102,8 @@ int main() {
                     string title; // Search by title
                     cout << "Enter title to search: ";
                     getline(cin, title);
-                    for (const auto& m : movies) { 
-                        if (m.title.find(title) != string::npos) { // Checks for parts of strings
+                    for (const auto& m : movies) {
+                        if (m.title.find(title) != string::npos) {
                             displayMovie(m);
                             found = true;
                         }
@@ -162,7 +162,7 @@ int main() {
                     cout << "Invalid search option.\n";
             }
         
-            if (!found && searchChoice >= 1 && searchChoice <= 5) { // No movies found. When found is set to true nothing happens
+            if (!found && searchChoice >= 1 && searchChoice <= 5) {
                 cout << "No matching movies found.\n";
             }
         } else if (choice == 3) {

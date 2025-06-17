@@ -187,19 +187,33 @@ public:
         }
         cout << "Most Common Genre: " << mostCommon << " (" << maxCount << " times)\n";
     }
+
+    bool binarySearchByTitle(const string& title) {
+        sortByTitle();
+        return binary_search(items.begin(), items.end(), title,
+            [](const shared_ptr<MediaItem>& item, const string& t) {
+                return item->getTitle() < t;
+            });
+    }
 };
 
 int main() {
     MediaCollection collection;
 
-    // Sample entries so I dont have to constantly keep putting things in
-    // collection.addItem(make_shared<Movie>("Inception", "Nolan", 2010, 8.8, 148, vector<string>{"Sci-Fi"}, vector<string>{"dream"}, "2023-01-01", "Nolan", 148, "WB"));
-    // collection.addItem(make_shared<Song>("Imagine", "Lennon", 1971, 9.2, 3, vector<string>{"Pop"}, vector<string>{"peace"}, "2023-01-02", "Imagine", 180, 100));
-    // collection.addItem(make_shared<Book>("1984", "Orwell", 1949, 9.0, 328, vector<string>{"Dystopia"}, vector<string>{"totalitarian"}, "2023-01-03", "Secker", 100.0));
+/*    collection.addItem(make_shared<Movie>("Inception", "Nolan", 2010, 8.8, 148, vector<string>{"Sci-Fi"}, vector<string>{"dream"}, "2023-01-01", "Nolan", 148, "WB"));
+    collection.addItem(make_shared<Song>("Imagine", "Lennon", 1971, 9.2, 3, vector<string>{"Pop"}, vector<string>{"peace"}, "2023-01-02", "Imagine", 180, 100));
+    collection.addItem(make_shared<Book>("1984", "Orwell", 1949, 9.0, 328, vector<string>{"Dystopia"}, vector<string>{"totalitarian"}, "2023-01-03", "Secker", 100.0));*/
 
     int choice;
     do {
-        cout << "\nMenu:\n1. View Collection\n2. Search Items\n3. Add New Item\n4. Collection Statistics\n5. Exit\nChoice: ";
+        cout << "\nMenu:\n"
+             << "1. View Collection\n"
+             << "2. Search Items\n"
+             << "3. Add New Item (not implemented)\n"
+             << "4. Collection Statistics\n"
+             << "5. Exit\n"
+             << "6. Binary Search by Title\n"
+             << "Choice: ";
         cin >> choice;
         cin.ignore();
 
@@ -220,12 +234,19 @@ int main() {
             cout << "Enter keyword to search: ";
             getline(cin, keyword);
             collection.searchByKeyword(keyword);
-        } else if (choice == 3) {
-            cout << "Adding new item not implemented in this demo.\n";
         } else if (choice == 4) {
             collection.countByType();
             collection.averageRating();
             collection.mostCommonGenre();
+        } else if (choice == 6) {
+            string title;
+            cout << "Enter title to search for (binary search): ";
+            getline(cin, title);
+            bool found = collection.binarySearchByTitle(title);
+            if (found)
+                cout << "Item with title \"" << title << "\" found in collection.\n";
+            else
+                cout << "Item with title \"" << title << "\" not found.\n";
         }
     } while (choice != 5);
 
