@@ -1,3 +1,6 @@
+// Updated to support expanded Pokemon data from Gen 1 to Gen 9
+#include "pokemon_data.h"
+
 #include <iostream>
 #include <vector>
 #include <cstdlib>
