@@ -1,8 +1,8 @@
 === Pokemon Adventure Log ===
-Start Time: Tue Jun 17 22:55:53 2025
-End Time: Tue Jun 17 23:06:43 2025
-Number of Pokemon Chosen: 0
-Number of Pokemon Fainted: 11
+Start Time: Wed Jun 18 00:26:47 2025
+End Time: Wed Jun 18 00:27:56 2025
+Number of Pokemon Chosen: 5
+Number of Pokemon Fainted: 13
 Bosses Defeated: 
 Final Team Lineup: Venusaur Charizard Blastoise Meganium Typhlosion 
 =============================

@@ -16,9 +16,9 @@ enum class BattleResult {
 #ifndef PRINT_BATTLE_BANNER_DEFINED
 #define PRINT_BATTLE_BANNER_DEFINED
 inline void printBattleBanner(const std::string& title) {
-    std::cout << "\n==============================\n";
-    std::cout << " " << title << "\n";
-    std::cout << "==============================\n";
+    cout << "\n==============================\n";
+    cout << " " << title << "\n";
+    cout << "==============================\n";
 }
 #endif
 
@@ -89,7 +89,7 @@ bool allFainted(const vector<BattlePokemon>& team) {
     return true;
 }
 
-BattleResult battle(const vector<Pokemon>& playerTeam, const vector<Pokemon>& enemyTeam, const AttackDatabase& attackDB, int& totalAttacks, int& totalFainted) {
+BattleResult battle(const vector<Pokemon>& playerTeam, const vector<Pokemon>& enemyTeam, const AttackDatabase& attackDB, int& totalAttacks, int& totalFainted, int& totalDamageDealt, int& totalDamageReceived) {
     vector<BattlePokemon> player, enemy;
     for (const auto& p : playerTeam) player.emplace_back(p);
     for (const auto& p : enemyTeam) enemy.emplace_back(p);
