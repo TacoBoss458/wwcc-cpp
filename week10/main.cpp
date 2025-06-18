@@ -1,24 +1,24 @@
-/*
+/*This took forever. Enjoy!
  * Interactive Story Game - PokeCode!
  * Author: Isaiah Rusch
  * Date: 6/17/2025
  *
  * ==== Project Features ====
  * Variables (3+ types): Lines 16-18 in pokemon_data.h
- * If/else statements: Lines 110, 149(attack_data.h), 29(utilities.h)
- * Switch statement: Line _______
- * For Loop: Line 96
- * While Loop: Line 117
- * Function w/ return: Line 70
+ * If/else statements: Lines 83, 89, 126
+ * Switch statement: Line 97
+ * For Loop: Line 110
+ * While Loop: Line 76
+ * Function w/ return: Line 72
  * Void function: Line 49
  * Function w/ params: Line 49
- * Vector usage: Lines 64, 65, 78 and many more
- * Struct/Class: Lines 59-66
+ * Vector usage: Lines 64, 65, 102 and many more
+ * Struct/Class: Lines 59-68
  * Enum: Lines 40-43
- * File Reading: Lines 105-120
- * File Writing: Lines 169-181
- * Modern Feature (auto): Lines 85, 92
- * Modern Feature (range-for): Line 150
+ * File Reading: Lines 216-232
+ * File Writing: Lines 199-210
+ * Modern Feature (auto): Lines 110, 118
+ * Modern Feature (range-for): Line 110
  * ==========================
  */
 #include <set>
@@ -46,7 +46,7 @@ enum class BattleResult {
 
 #ifndef PRINT_BATTLE_BANNER_DEFINED
 #define PRINT_BATTLE_BANNER_DEFINED
-inline void printBattleBanner(const std::string& title) {
+inline void printBattleBanner(const string& title) {
     cout << "==============================";
     cout << " " << title << "\n";
     cout << "==============================";
