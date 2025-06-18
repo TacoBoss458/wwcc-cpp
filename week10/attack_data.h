@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <unordered_map>
+
 using namespace std;
 
 struct Attack {
@@ -18,420 +19,138 @@ public:
 
     AttackDatabase() {
         attackMap = {
-            {"Bayleef", {
-            Attack("Bayleef Strike", 20),
-            Attack("Bayleef Blast", 25),
-            Attack("Bayleef Fury", 30)
-        }},
-            {"Blastoise", {
-            Attack("Blastoise Strike", 20),
-            Attack("Blastoise Blast", 25),
-            Attack("Blastoise Fury", 30)
-        }},
-            {"Blaziken", {
-            Attack("Blaziken Strike", 20),
-            Attack("Blaziken Blast", 25),
-            Attack("Blaziken Fury", 30)
-        }},
-            {"Braixen", {
-            Attack("Braixen Strike", 20),
-            Attack("Braixen Blast", 25),
-            Attack("Braixen Fury", 30)
-        }},
-            {"Brionne", {
-            Attack("Brionne Strike", 20),
-            Attack("Brionne Blast", 25),
-            Attack("Brionne Fury", 30)
-        }},
-            {"Bulbasaur", {
-            Attack("Bulbasaur Strike", 20),
-            Attack("Bulbasaur Blast", 25),
-            Attack("Bulbasaur Fury", 30)
-        }},
-            {"Charizard", {
-            Attack("Charizard Strike", 20),
-            Attack("Charizard Blast", 25),
-            Attack("Charizard Fury", 30)
-        }},
-            {"Charmander", {
-            Attack("Charmander Strike", 20),
-            Attack("Charmander Blast", 25),
-            Attack("Charmander Fury", 30)
-        }},
-            {"Charmeleon", {
-            Attack("Charmeleon Strike", 20),
-            Attack("Charmeleon Blast", 25),
-            Attack("Charmeleon Fury", 30)
-        }},
-            {"Chesnaught", {
-            Attack("Chesnaught Strike", 20),
-            Attack("Chesnaught Blast", 25),
-            Attack("Chesnaught Fury", 30)
-        }},
-            {"Chespin", {
-            Attack("Chespin Strike", 20),
-            Attack("Chespin Blast", 25),
-            Attack("Chespin Fury", 30)
-        }},
-            {"Chikorita", {
-            Attack("Chikorita Strike", 20),
-            Attack("Chikorita Blast", 25),
-            Attack("Chikorita Fury", 30)
-        }},
-            {"Chimchar", {
-            Attack("Chimchar Strike", 20),
-            Attack("Chimchar Blast", 25),
-            Attack("Chimchar Fury", 30)
-        }},
-            {"Cinderace", {
-            Attack("Cinderace Strike", 20),
-            Attack("Cinderace Blast", 25),
-            Attack("Cinderace Fury", 30)
-        }},
-            {"Combusken", {
-            Attack("Combusken Strike", 20),
-            Attack("Combusken Blast", 25),
-            Attack("Combusken Fury", 30)
-        }},
-            {"Crocalor", {
-            Attack("Crocalor Strike", 20),
-            Attack("Crocalor Blast", 25),
-            Attack("Crocalor Fury", 30)
-        }},
-            {"Croconaw", {
-            Attack("Croconaw Strike", 20),
-            Attack("Croconaw Blast", 25),
-            Attack("Croconaw Fury", 30)
-        }},
-            {"Cyndaquil", {
-            Attack("Cyndaquil Strike", 20),
-            Attack("Cyndaquil Blast", 25),
-            Attack("Cyndaquil Fury", 30)
-        }},
-            {"Dartrix", {
-            Attack("Dartrix Strike", 20),
-            Attack("Dartrix Blast", 25),
-            Attack("Dartrix Fury", 30)
-        }},
-            {"Decidueye", {
-            Attack("Decidueye Strike", 20),
-            Attack("Decidueye Blast", 25),
-            Attack("Decidueye Fury", 30)
-        }},
-            {"Delphox", {
-            Attack("Delphox Strike", 20),
-            Attack("Delphox Blast", 25),
-            Attack("Delphox Fury", 30)
-        }},
-            {"Dewott", {
-            Attack("Dewott Strike", 20),
-            Attack("Dewott Blast", 25),
-            Attack("Dewott Fury", 30)
-        }},
-            {"Drizzile", {
-            Attack("Drizzile Strike", 20),
-            Attack("Drizzile Blast", 25),
-            Attack("Drizzile Fury", 30)
-        }},
-            {"Emboar", {
-            Attack("Emboar Strike", 20),
-            Attack("Emboar Blast", 25),
-            Attack("Emboar Fury", 30)
-        }},
-            {"Empoleon", {
-            Attack("Empoleon Strike", 20),
-            Attack("Empoleon Blast", 25),
-            Attack("Empoleon Fury", 30)
-        }},
-            {"Fennekin", {
-            Attack("Fennekin Strike", 20),
-            Attack("Fennekin Blast", 25),
-            Attack("Fennekin Fury", 30)
-        }},
-            {"Feraligatr", {
-            Attack("Feraligatr Strike", 20),
-            Attack("Feraligatr Blast", 25),
-            Attack("Feraligatr Fury", 30)
-        }},
-            {"Floragato", {
-            Attack("Floragato Strike", 20),
-            Attack("Floragato Blast", 25),
-            Attack("Floragato Fury", 30)
-        }},
-            {"Froakie", {
-            Attack("Froakie Strike", 20),
-            Attack("Froakie Blast", 25),
-            Attack("Froakie Fury", 30)
-        }},
-            {"Frogadier", {
-            Attack("Frogadier Strike", 20),
-            Attack("Frogadier Blast", 25),
-            Attack("Frogadier Fury", 30)
-        }},
-            {"Fuecoco", {
-            Attack("Fuecoco Strike", 20),
-            Attack("Fuecoco Blast", 25),
-            Attack("Fuecoco Fury", 30)
-        }},
-            {"Greninja", {
-            Attack("Greninja Strike", 20),
-            Attack("Greninja Blast", 25),
-            Attack("Greninja Fury", 30)
-        }},
-            {"Grookey", {
-            Attack("Grookey Strike", 20),
-            Attack("Grookey Blast", 25),
-            Attack("Grookey Fury", 30)
-        }},
-            {"Grotle", {
-            Attack("Grotle Strike", 20),
-            Attack("Grotle Blast", 25),
-            Attack("Grotle Fury", 30)
-        }},
-            {"Grovyle", {
-            Attack("Grovyle Strike", 20),
-            Attack("Grovyle Blast", 25),
-            Attack("Grovyle Fury", 30)
-        }},
-            {"Incineroar", {
-            Attack("Incineroar Strike", 20),
-            Attack("Incineroar Blast", 25),
-            Attack("Incineroar Fury", 30)
-        }},
-            {"Infernape", {
-            Attack("Infernape Strike", 20),
-            Attack("Infernape Blast", 25),
-            Attack("Infernape Fury", 30)
-        }},
-            {"Inteleon", {
-            Attack("Inteleon Strike", 20),
-            Attack("Inteleon Blast", 25),
-            Attack("Inteleon Fury", 30)
-        }},
-            {"Ivysaur", {
-            Attack("Ivysaur Strike", 20),
-            Attack("Ivysaur Blast", 25),
-            Attack("Ivysaur Fury", 30)
-        }},
-            {"Litten", {
-            Attack("Litten Strike", 20),
-            Attack("Litten Blast", 25),
-            Attack("Litten Fury", 30)
-        }},
-            {"Marshtomp", {
-            Attack("Marshtomp Strike", 20),
-            Attack("Marshtomp Blast", 25),
-            Attack("Marshtomp Fury", 30)
-        }},
-            {"Meganium", {
-            Attack("Meganium Strike", 20),
-            Attack("Meganium Blast", 25),
-            Attack("Meganium Fury", 30)
-        }},
-            {"Meowscarada", {
-            Attack("Meowscarada Strike", 20),
-            Attack("Meowscarada Blast", 25),
-            Attack("Meowscarada Fury", 30)
-        }},
-            {"Monferno", {
-            Attack("Monferno Strike", 20),
-            Attack("Monferno Blast", 25),
-            Attack("Monferno Fury", 30)
-        }},
-            {"Mudkip", {
-            Attack("Mudkip Strike", 20),
-            Attack("Mudkip Blast", 25),
-            Attack("Mudkip Fury", 30)
-        }},
-            {"Oshawott", {
-            Attack("Oshawott Strike", 20),
-            Attack("Oshawott Blast", 25),
-            Attack("Oshawott Fury", 30)
-        }},
-            {"Pignite", {
-            Attack("Pignite Strike", 20),
-            Attack("Pignite Blast", 25),
-            Attack("Pignite Fury", 30)
-        }},
-            {"Piplup", {
-            Attack("Piplup Strike", 20),
-            Attack("Piplup Blast", 25),
-            Attack("Piplup Fury", 30)
-        }},
-            {"Popplio", {
-            Attack("Popplio Strike", 20),
-            Attack("Popplio Blast", 25),
-            Attack("Popplio Fury", 30)
-        }},
-            {"Primarina", {
-            Attack("Primarina Strike", 20),
-            Attack("Primarina Blast", 25),
-            Attack("Primarina Fury", 30)
-        }},
-            {"Prinplup", {
-            Attack("Prinplup Strike", 20),
-            Attack("Prinplup Blast", 25),
-            Attack("Prinplup Fury", 30)
-        }},
-            {"Quaquaval", {
-            Attack("Quaquaval Strike", 20),
-            Attack("Quaquaval Blast", 25),
-            Attack("Quaquaval Fury", 30)
-        }},
-            {"Quaxly", {
-            Attack("Quaxly Strike", 20),
-            Attack("Quaxly Blast", 25),
-            Attack("Quaxly Fury", 30)
-        }},
-            {"Quaxwell", {
-            Attack("Quaxwell Strike", 20),
-            Attack("Quaxwell Blast", 25),
-            Attack("Quaxwell Fury", 30)
-        }},
-            {"Quilava", {
-            Attack("Quilava Strike", 20),
-            Attack("Quilava Blast", 25),
-            Attack("Quilava Fury", 30)
-        }},
-            {"Quilladin", {
-            Attack("Quilladin Strike", 20),
-            Attack("Quilladin Blast", 25),
-            Attack("Quilladin Fury", 30)
-        }},
-            {"Raboot", {
-            Attack("Raboot Strike", 20),
-            Attack("Raboot Blast", 25),
-            Attack("Raboot Fury", 30)
-        }},
-            {"Rillaboom", {
-            Attack("Rillaboom Strike", 20),
-            Attack("Rillaboom Blast", 25),
-            Attack("Rillaboom Fury", 30)
-        }},
-            {"Rowlet", {
-            Attack("Rowlet Strike", 20),
-            Attack("Rowlet Blast", 25),
-            Attack("Rowlet Fury", 30)
-        }},
-            {"Samurott", {
-            Attack("Samurott Strike", 20),
-            Attack("Samurott Blast", 25),
-            Attack("Samurott Fury", 30)
-        }},
-            {"Sceptile", {
-            Attack("Sceptile Strike", 20),
-            Attack("Sceptile Blast", 25),
-            Attack("Sceptile Fury", 30)
-        }},
-            {"Scorbunny", {
-            Attack("Scorbunny Strike", 20),
-            Attack("Scorbunny Blast", 25),
-            Attack("Scorbunny Fury", 30)
-        }},
-            {"Serperior", {
-            Attack("Serperior Strike", 20),
-            Attack("Serperior Blast", 25),
-            Attack("Serperior Fury", 30)
-        }},
-            {"Servine", {
-            Attack("Servine Strike", 20),
-            Attack("Servine Blast", 25),
-            Attack("Servine Fury", 30)
-        }},
-            {"Skeledirge", {
-            Attack("Skeledirge Strike", 20),
-            Attack("Skeledirge Blast", 25),
-            Attack("Skeledirge Fury", 30)
-        }},
-            {"Snivy", {
-            Attack("Snivy Strike", 20),
-            Attack("Snivy Blast", 25),
-            Attack("Snivy Fury", 30)
-        }},
-            {"Sobble", {
-            Attack("Sobble Strike", 20),
-            Attack("Sobble Blast", 25),
-            Attack("Sobble Fury", 30)
-        }},
-            {"Sprigatito", {
-            Attack("Sprigatito Strike", 20),
-            Attack("Sprigatito Blast", 25),
-            Attack("Sprigatito Fury", 30)
-        }},
-            {"Squirtle", {
-            Attack("Squirtle Strike", 20),
-            Attack("Squirtle Blast", 25),
-            Attack("Squirtle Fury", 30)
-        }},
-            {"Swampert", {
-            Attack("Swampert Strike", 20),
-            Attack("Swampert Blast", 25),
-            Attack("Swampert Fury", 30)
-        }},
-            {"Tepig", {
-            Attack("Tepig Strike", 20),
-            Attack("Tepig Blast", 25),
-            Attack("Tepig Fury", 30)
-        }},
-            {"Thwackey", {
-            Attack("Thwackey Strike", 20),
-            Attack("Thwackey Blast", 25),
-            Attack("Thwackey Fury", 30)
-        }},
-            {"Torchic", {
-            Attack("Torchic Strike", 20),
-            Attack("Torchic Blast", 25),
-            Attack("Torchic Fury", 30)
-        }},
-            {"Torracat", {
-            Attack("Torracat Strike", 20),
-            Attack("Torracat Blast", 25),
-            Attack("Torracat Fury", 30)
-        }},
-            {"Torterra", {
-            Attack("Torterra Strike", 20),
-            Attack("Torterra Blast", 25),
-            Attack("Torterra Fury", 30)
-        }},
-            {"Totodile", {
-            Attack("Totodile Strike", 20),
-            Attack("Totodile Blast", 25),
-            Attack("Totodile Fury", 30)
-        }},
-            {"Treecko", {
-            Attack("Treecko Strike", 20),
-            Attack("Treecko Blast", 25),
-            Attack("Treecko Fury", 30)
-        }},
-            {"Turtwig", {
-            Attack("Turtwig Strike", 20),
-            Attack("Turtwig Blast", 25),
-            Attack("Turtwig Fury", 30)
-        }},
-            {"Typhlosion", {
-            Attack("Typhlosion Strike", 20),
-            Attack("Typhlosion Blast", 25),
-            Attack("Typhlosion Fury", 30)
-        }},
-            {"Venusaur", {
-            Attack("Venusaur Strike", 20),
-            Attack("Venusaur Blast", 25),
-            Attack("Venusaur Fury", 30)
-        }},
-            {"Wartortle", {
-            Attack("Wartortle Strike", 20),
-            Attack("Wartortle Blast", 25),
-            Attack("Wartortle Fury", 30)
-        }}
+            // Gen 1 Starters
+            { "Bulbasaur", { {"Vine Whip", 25}, {"Tackle", 20}, {"Razor Leaf", 30} }},
+            { "Ivysaur", { {"Vine Whip", 30}, {"Razor Leaf", 35}, {"Seed Bomb", 40} }},
+            { "Venusaur", { {"Solar Beam", 80}, {"Earthquake", 70}, {"Sludge Bomb", 65} }},
+
+            { "Charmander", { {"Ember", 25}, {"Scratch", 20}, {"Flamethrower", 30} }},
+            { "Charmeleon", { {"Flamethrower", 40}, {"Slash", 35}, {"Fire Fang", 35} }},
+            { "Charizard", { {"Flamethrower", 80}, {"Dragon Claw", 60}, {"Blast Burn", 90} }},
+
+            { "Squirtle", { {"Water Gun", 25}, {"Tackle", 20}, {"Bubble Beam", 30} }},
+            { "Wartortle", { {"Water Gun", 30}, {"Bite", 35}, {"Rapid Spin", 40} }},
+            { "Blastoise", { {"Hydro Pump", 80}, {"Skull Bash", 65}, {"Flash Cannon", 70} }},
+
+            // Gen 2 Starters
+            { "Chikorita", { {"Vine Whip", 25}, {"Tackle", 20}, {"Razor Leaf", 30} }},
+            { "Bayleef", { {"Vine Whip", 30}, {"Razor Leaf", 35}, {"Body Slam", 40} }},
+            { "Meganium", { {"Solar Beam", 80}, {"Earthquake", 70}, {"Sludge Bomb", 65} }},
+
+            { "Cyndaquil", { {"Ember", 25}, {"Scratch", 20}, {"Flamethrower", 30} }},
+            { "Quilava", { {"Flamethrower", 40}, {"Slash", 35}, {"Flame Wheel", 35} }},
+            { "Typhlosion", { {"Flamethrower", 80}, {"Eruption", 90}, {"Solar Beam", 80} }},
+
+            { "Totodile", { {"Water Gun", 25}, {"Scratch", 20}, {"Bite", 30} }},
+            { "Croconaw", { {"Water Pulse", 35}, {"Bite", 35}, {"Ice Fang", 40} }},
+            { "Feraligatr", { {"Hydro Pump", 80}, {"Crunch", 60}, {"Earthquake", 70} }},
+
+            // Gen 3 Starters
+            { "Treecko", { {"Vine Whip", 25}, {"Tackle", 20}, {"Leaf Blade", 35} }},
+            { "Grovyle", { {"Leaf Blade", 40}, {"Brick Break", 35}, {"Agility", 0} }},
+            { "Sceptile", { {"Leaf Blade", 80}, {"Dragon Claw", 60}, {"Earthquake", 70} }},
+
+            { "Torchic", { {"Ember", 25}, {"Scratch", 20}, {"Double Kick", 30} }},
+            { "Combusken", { {"Flamethrower", 40}, {"Brick Break", 40}, {"Quick Attack", 30} }},
+            { "Blaziken", { {"Flamethrower", 80}, {"Sky Uppercut", 70}, {"Blaze Kick", 75} }},
+
+            { "Mudkip", { {"Water Gun", 25}, {"Tackle", 20}, {"Mud Shot", 30} }},
+            { "Marshtomp", { {"Mud Shot", 35}, {"Water Pulse", 40}, {"Earthquake", 70} }},
+            { "Swampert", { {"Hydro Pump", 80}, {"Earthquake", 80}, {"Mud Shot", 40} }},
+
+            // Gen 4 Starters
+            { "Turtwig", { {"Tackle", 20}, {"Razor Leaf", 30}, {"Seed Bomb", 40} }},
+            { "Grotle", { {"Razor Leaf", 35}, {"Crunch", 40}, {"Seed Bomb", 50} }},
+            { "Torterra", { {"Earthquake", 80}, {"Wood Hammer", 75}, {"Stone Edge", 80} }},
+
+            { "Chimchar", { {"Ember", 25}, {"Scratch", 20}, {"Fire Punch", 35} }},
+            { "Monferno", { {"Fire Punch", 40}, {"Brick Break", 40}, {"Flamethrower", 50} }},
+            { "Infernape", { {"Flamethrower", 80}, {"Close Combat", 75}, {"Fire Punch", 55} }},
+
+            { "Piplup", { {"Bubble", 20}, {"Peck", 25}, {"Bide", 10} }},
+            { "Prinplup", { {"Bubble Beam", 40}, {"Peck", 30}, {"Brine", 40} }},
+            { "Empoleon", { {"Hydro Pump", 80}, {"Flash Cannon", 70}, {"Drill Peck", 65} }},
+
+            // Gen 5 Starters
+            { "Snivy", { {"Vine Whip", 25}, {"Tackle", 20}, {"Leaf Blade", 40} }},
+            { "Servine", { {"Leaf Blade", 40}, {"Aerial Ace", 40}, {"Leech Seed", 35} }},
+            { "Serperior", { {"Leaf Blade", 80}, {"Glare", 0}, {"Giga Drain", 75} }},
+
+            { "Tepig", { {"Ember", 25}, {"Tackle", 20}, {"Flame Charge", 40} }},
+            { "Pignite", { {"Flamethrower", 50}, {"Brick Break", 40}, {"Flame Charge", 50} }},
+            { "Emboar", { {"Flamethrower", 80}, {"Flame Charge", 60}, {"Hammer Arm", 75} }},
+
+            { "Oshawott", { {"Water Gun", 25}, {"Tackle", 20}, {"Razor Shell", 40} }},
+            { "Dewott", { {"Razor Shell", 50}, {"Water Pulse", 35}, {"Fury Cutter", 30} }},
+            { "Samurott", { {"Hydro Pump", 80}, {"Megahorn", 85}, {"Swords Dance", 0} }},
+
+            // Gen 6 Starters
+            { "Chespin", { {"Vine Whip", 25}, {"Tackle", 20}, {"Seed Bomb", 35} }},
+            { "Quilladin", { {"Seed Bomb", 45}, {"Tackle", 25}, {"Rollout", 30} }},
+            { "Chesnaught", { {"Wood Hammer", 75}, {"Earthquake", 80}, {"Spikes", 0} }},
+
+            { "Fennekin", { {"Ember", 30}, {"Scratch", 20}, {"Psybeam", 50} }},
+            { "Braixen", { {"Psybeam", 50}, {"Flamethrower", 60}, {"Fire Spin", 40} }},
+            { "Delphox", { {"Flamethrower", 90}, {"Psychic", 90}, {"Fire Blast", 110} }},
+
+            { "Froakie", { {"Pound", 15}, {"Water Gun", 25}, {"Quick Attack", 20} }},
+            { "Frogadier", { {"Water Pulse", 40}, {"Quick Attack", 30}, {"Smokescreen", 0} }},
+            { "Greninja", { {"Hydro Pump", 80}, {"Dark Pulse", 75}, {"Aerial Ace", 60} }},
+
+            // Gen 7 Starters
+            { "Rowlet", { {"Tackle", 20}, {"Leafage", 30}, {"Peck", 25} }},
+            { "Dartrix", { {"Leafage", 40}, {"Brave Bird", 70}, {"Fury Attack", 25} }},
+            { "Decidueye", { {"Spirit Shackle", 80}, {"Leaf Blade", 90}, {"Sucker Punch", 70} }},
+
+            { "Litten", { {"Scratch", 20}, {"Ember", 25}, {"Bite", 35} }},
+            { "Torracat", { {"Flamethrower", 50}, {"Fire Fang", 65}, {"Bite", 45} }},
+            { "Infernape", { {"Flamethrower", 90}, {"Close Combat", 75}, {"Flare Blitz", 120} }},
+
+            { "Popplio", { {"Pound", 15}, {"Water Gun", 25}, {"Bubble Beam", 40} }},
+            { "Brionne", { {"Water Pulse", 35}, {"Disarming Voice", 40}, {"Aqua Jet", 40} }},
+            { "Primarina", { {"Moonblast", 95}, {"Hydro Pump", 110}, {"Aqua Jet", 40} }},
+
+            // Gen 8 Starters
+            { "Grookey", { {"Scratch", 20}, {"Branch Poke", 35}, {"Razor Leaf", 30} }},
+            { "Thwackey", { {"Branch Poke", 45}, {"Wood Hammer", 75}, {"Fake Out", 40} }},
+            { "Rillaboom", { {"Drum Beating", 80}, {"Wood Hammer", 90}, {"Mach Punch", 40} }},
+
+            { "Scorbunny", { {"Ember", 30}, {"Quick Attack", 20}, {"Flame Charge", 40} }},
+            { "Raboot", { {"Flame Charge", 50}, {"Double Kick", 30}, {"Pyro Ball", 120} }},
+            { "Cinderace", { {"Pyro Ball", 120}, {"High Jump Kick", 85}, {"Feint", 30} }},
+
+            { "Sobble", { {"Tackle", 20}, {"Water Gun", 25}, {"Smokescreen", 0} }},
+            { "Drizzile", { {"Water Pulse", 40}, {"Dark Pulse", 75}, {"Aqua Jet", 40} }},
+            { "Inteleon", { {"Snipe Shot", 70}, {"Hydro Pump", 110}, {"U-Turn", 70} }},
+
+            // Gen 9 Starters
+            { "Sprigatito", { {"Tackle", 20}, {"Leafage", 25}, {"Razor Leaf", 30} }},
+            { "Floragato", { {"Scratch", 30}, {"Leaf Blade", 70}, {"Bite", 60} }},
+            { "Meowscarada", { {"Flower Trick", 70}, {"Knock Off", 20}, {"Leaf Blade", 90} }},
+
+            { "Fuecoco", { {"Ember", 25}, {"Bite", 60}, {"Fire Fang", 65} }},
+            { "Crocalor", { {"Fire Fang", 65}, {"Crunch", 80}, {"Flamethrower", 90} }},
+            { "Skeledirge", { {"Torch Song", 80}, {"Flamethrower", 90}, {"Shadow Ball", 80} }},
+
+            { "Quaxly", { {"Water Gun", 25}, {"Tackle", 20}, {"Peck", 35} }},
+            { "Quaxwell", { {"Fury Attack", 28}, {"Water Pulse", 60}, {"Brave Bird", 70} }},
+            { "Quaquaval", { {"Liquidation", 85}, {"Close Combat", 120}, {"Aqua Jet", 40} }},
+
+            // Legendary Bosses attacks (basic)
+            { "Mewtwo", { {"Psystrike", 50}, {"Shadow Ball", 60} }},
+            { "Giratina", { {"Shadow Force", 50}, {"Dragon Claw", 80}, {"Aura Sphere", 60} }},
+            { "Palkia", { {"Spacial Rend", 50}, {"Hydro Pump", 80}, {"Dragon Pulse", 60} }},
+            { "Dialga", { {"Roar of Time", 60}, {"Flash Cannon", 85}, {"Dragon Breath", 60} }},
         };
     }
 
-    vector<Attack> getAttacks(const string& pokemonName) {
-        if (attackMap.find(pokemonName) != attackMap.end()) {
-            return attackMap[pokemonName];
+    vector<Attack> getAttacksForPokemon(const string& pokemonName) const {
+        auto it = attackMap.find(pokemonName);
+        if (it != attackMap.end()) {
+            return it->second;
         }
         return {};
     }
 };
 
-#endif // ATTACK_DATA_H
+#endif

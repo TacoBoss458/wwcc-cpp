@@ -1,89 +1,161 @@
-// Updated to support expanded Pokemon data from Gen 1 to Gen 9
-#include "pokemon_data.h"
-
+#include <set>
+#include <unordered_set>
 #include <iostream>
 #include <vector>
 #include <cstdlib>
 #include <ctime>
 #include "pokemon_data.h"
+#include "attack_data.h"
+#include "utilities.h"
+#include "battle_system.h"
+#include <limits>
+#include <fstream>
+#include <chrono>
+
+#ifndef BATTLE_RESULT_DEFINED
+#define BATTLE_RESULT_DEFINED
+enum class BattleResult {
+    Victory,
+    Defeat
+};
+#endif
+
+
+#ifndef PRINT_BATTLE_BANNER_DEFINED
+#define PRINT_BATTLE_BANNER_DEFINED
+inline void printBattleBanner(const std::string& title) {
+    cout << "==============================";
+    cout << " " << title << "\n";
+    cout << "==============================";
+}
+#endif
+
 
 using namespace std;
 
-// -------------------- Battle Function --------------------
-bool battle(Pokemon& player, Pokemon boss) {
-    cout << "\nBattle Start: " << player.name << " vs " << boss.name << "!\n";
+struct AdventureLog {
+    chrono::system_clock::time_point startTime;
+    chrono::system_clock::time_point endTime;
+    int numChosen = 0;
+    int numFainted = 0;
+    vector<string> bossesDefeated;
+    vector<string> finalTeam;
+};
 
-    while (player.hp > 0 && boss.hp > 0) {
-        // Player attacks
-        int playerDamage = max(1, player.attack - boss.defense / 2);
-        boss.hp -= playerDamage;
-        cout << player.name << " attacks " << boss.name << " for " << playerDamage << " damage!\n";
 
-        if (boss.hp <= 0) {
-            cout << boss.name << " fainted! You win this battle!\n";
-            return true;
-        }
 
-        // Boss attacks
-        int bossDamage = max(1, boss.attack - player.defense / 2);
-        player.hp -= bossDamage;
-        cout << boss.name << " attacks " << player.name << " for " << bossDamage << " damage!\n";
-
-        if (player.hp <= 0) {
-            cout << player.name << " fainted! You lost this battle.\n";
-            return false;
-        }
-    }
-
-    return false;
-}
-
-// -------------------- Boss Pokémon --------------------
-vector<Pokemon> getBosses() {
-    return {
-        Pokemon("Mewtwo", "Psychic", 106, 110, 90),
-        Pokemon("Giratina", "Ghost/Dragon", 150, 100, 120),
-        Pokemon("Palkia", "Water/Dragon", 90, 120, 100),
-        Pokemon("Dialga", "Steel/Dragon", 100, 120, 120) // Final Boss
-    };
-}
-
-// -------------------- Main Function --------------------
 int main() {
-    srand(static_cast<unsigned int>(time(0)));
+    AdventureLog log;
+    log.startTime = chrono::system_clock::now();
+    srand(static_cast<unsigned>(time(nullptr))); // Seed RNG
 
-    cout << "Welcome to the Pokémon Text Adventure!\n";
-    cout << "Choose your starter Pokémon:\n";
+    int totalFaints = 0;
+    int totalAttacks = 0;
 
-    vector<Pokemon> starters = getStarterPokemon();
-    for (size_t i = 0; i < starters.size(); ++i) {
-        cout << i + 1 << ". " << starters[i].name << " (" << starters[i].type << ")\n";
+    vector<Pokemon> allPokemon = getAllPokemon();
+    AttackDatabase attackDB;
+
+    // --- Player selects initial team ---
+    cout << "Select your team of 5 starter Pokemon from the list below:\n";
+    vector<Pokemon> playerTeam = selectInitialTeam(allPokemon);
+    log.numChosen = playerTeam.size();
+
+    cout << "\nYour selected team:\n";
+    for (const auto& p : playerTeam) {
+        cout << " - " << p.name << " (" << p.type << ") HP: " << p.hp
+             << " Atk: " << p.attack << " Def: " << p.defense << "\n";
     }
 
-    int choice;
-    cin >> choice;
+    // --- Gym Battles ---
+    cout << "\nNow it's time to challenge the Legendary Gyms!\n";
+    vector<Gym> gyms = getGyms();
 
-    if (choice < 1 || choice > starters.size()) {
-        cout << "Invalid choice. Exiting game.\n";
-        return 1;
-    }
+    for (const auto& gym : gyms) {
+        cout << "\n=== " << gym.name << " ===\n";
+        cout << "Boss: " << gym.bossName << "\n";
+        cout << "Restricted types: ";
+        for (const auto& t : gym.restrictedTypes) cout << t << " ";
+        cout << "\n";
 
-    Pokemon player = starters[choice - 1];
-    cout << "You chose " << player.name << "!\n";
-
-    vector<Pokemon> bosses = getBosses();
-    for (size_t i = 0; i < bosses.size(); ++i) {
-        cout << "\nA wild " << bosses[i].name << " appears!\n";
-        bool won = battle(player, bosses[i]);
-
-        if (!won) {
-            cout << "Game Over. Better luck next time!\n";
+        vector<Pokemon> filteredTeam = filterTeamForGym(playerTeam, gym);
+        if (filteredTeam.empty()) {
+            cout << "All your Pokemon were filtered out by the gym restrictions. You lose.\n";
             return 0;
-        } else {
-            cout << "You defeated " << bosses[i].name << "!\n";
         }
+
+        vector<Pokemon> selectedTeam;
+        if (gym.name != "Final Boss") {
+            cout << "Select 3 Pokemon from your filtered team for this gym battle:\n";
+            for (int i = 0; i < filteredTeam.size(); ++i) {
+                cout << i + 1 << ". " << filteredTeam[i].name << "\n";
+            }
+
+            set<int> selectedIndices;
+            while (selectedTeam.size() < 3) {
+                int choice;
+                cout << "Enter choice #" << selectedTeam.size() + 1 << ": ";
+                if (!(cin >> choice)) {
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    cout << "Invalid input. Please enter a number.\n";
+                    continue;
+                }
+                if (choice >= 1 && choice <= filteredTeam.size()) {
+                    if (selectedIndices.count(choice)) {
+                        cout << "You already selected that Pokemon. Choose a different one.\n";
+                        continue;
+                    }
+                    selectedIndices.insert(choice);
+                    selectedTeam.push_back(filteredTeam[choice - 1]);
+                } else {
+                    cout << "Invalid choice. Try again.\n";
+                }
+            }
+        } else {
+            selectedTeam = playerTeam;
+        }
+
+        Pokemon boss = findPokemonByName(allPokemon, gym.bossName);
+        vector<Pokemon> bossTeam = { boss };
+
+        cout << "Filtered team:\n";
+        for (const auto& p : filteredTeam) {
+            cout << " - " << p.name << " (" << p.type << ") HP: " << p.hp
+                 << " Atk: " << p.attack << " Def: " << p.defense << "\n";
+        }
+
+        printBattleBanner(gym.name + " BATTLE START!");
+        BattleResult result = battle(selectedTeam, bossTeam, attackDB, totalFaints, totalAttacks);
+        if (result == BattleResult::Defeat) {
+            std::cout << "You were defeated in the " << gym.name << "!\n";
+            return 0;
+        }
+
+        // Evolve team after battle
+        evolveTeam(playerTeam, allPokemon);
     }
 
-    cout << "\nCongratulations! You defeated all the bosses!\n";
+    cout << "\nYOU WIN!\n";
+    cout << "Thanks for playing!\n";
+
+    log.endTime = chrono::system_clock::now();
+    for (const auto& p : playerTeam) log.finalTeam.push_back(p.name);
+    log.numFainted = totalFaints;
+
+    ofstream out("Adventures.txt");
+    time_t start = chrono::system_clock::to_time_t(log.startTime);
+    time_t end = chrono::system_clock::to_time_t(log.endTime);
+    out << "=== Pokemon Adventure Log ===\n";
+    out << "Start Time: " << ctime(&start);
+    out << "End Time: " << ctime(&end);
+    out << "Number of Pokemon Chosen: " << log.numChosen << "\n";
+    out << "Number of Pokemon Fainted: " << log.numFainted << "\n";
+    out << "Bosses Defeated: ";
+    for (const auto& b : log.bossesDefeated) out << b << " ";
+    out << "\nFinal Team Lineup: ";
+    for (const auto& name : log.finalTeam) out << name << " ";
+    out << "\n=============================\n";
+    out.close();
+
     return 0;
 }
